@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Страница учителя</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #000; }
+
+    .topbar {
+      background: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #ddd;
+    }
+
+    .logo-block { display: flex; align-items: center; gap: 15px; }
+
+    .logo-img {
+      background: #fff;
+      padding: 5px;
+      border-radius: 8px;
+    }
+
+    .title-block { display: flex; flex-direction: column; }
+
+    .right { display: flex; gap: 15px; align-items: center; }
+
+    select { padding: 5px; }
+
+    .placeholder { color: #888; }
+
+    .container { max-width: 1000px; margin: 20px auto; }
+
+    .card {
+      border: 2px solid #ffc107;
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th { background: #ffc107; }
+
+    .strong { background: #c8e6c9; }
+    .medium { background: #fff3cd; }
+    .weak { background: #f8d7da; }
+
+    button {
+      margin-top: 15px;
+      padding: 10px;
+      background: #ffc107;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover { background: #e0a800; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo-block">
+    <img src="logo554.jpg" alt="Логотип" class="logo-img" style="width:80px; height:auto;">
+
+    <div class="title-block">
+      <h1>Система распределения по профилю</h1>
+      <span>Уровень допуска: <b>Учитель</b></span>
+    </div>
+  </div>
+
+  <div class="right">
+    <div>
+      <label>Группа</label>
+      <select id="group">
+        <option>10А</option>
+        <option>10Б</option>
+        <option>10В</option>
+        <option>10Г</option>
+        <option>10Д</option>
+      </select>
+    </div>
+
+    <div>
+      <label>Предмет</label>
+      <select id="teacherSubject">
+        <option>Математика</option>
+        <option>Физика</option>
+        <option>Химия</option>
+        <option>Биология</option>
+        <option>Информатика</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <h2>Список учеников</h2>
+
+    <table>
+      <tr>
+        <th>Ученик</th>
+        <th>Оценки</th>
+        <th>Способность (1–10)</th>
+        <th>Рекомендация</th>
+      </tr>
+
+      <tbody id="studentsTable"></tbody>
+    </table>
+
+    <button onclick="saveAll()">Сохранить всё</button>
+  </div>
+</div>
+
+<script>
+  const students = [
+    "Иванов", "Петров", "Сидоров", "Смирнов", "Кузнецов",
+    "Попов", "Васильев", "Новиков", "Фёдоров", "Морозов"
+  ];
+
+  const table = document.getElementById("studentsTable");
+
+  function getClass(value) {
+    if (value >= 8) return "strong";
+    if (value >= 5) return "medium";
+    return "weak";
+  }
+
+  students.forEach(name => {
+    const row = document.createElement("tr");
+
+    let options = '<option value="" disabled selected hidden>Выберите</option>';
+    for (let i = 1; i <= 10; i++) {
+      options += `<option value="${i}">${i}</option>`;
+    }
+
+    row.innerHTML = `
+      <td>${name}</td>
+      <td>4,5,3</td>
+      <td>
+        <select class="placeholder" onchange="updateColor(this)">
+          ${options}
+        </select>
+      </td>
+      <td>
+        <select>
+          <option>Рекомендую</option>
+          <option selected>Не рекомендую</option>
+        </select>
+      </td>
+    `;
+
+    table.appendChild(row);
+  });
+
+  function updateColor(select) {
+    select.classList.remove("placeholder");
+
+    const value = parseInt(select.value);
+    const row = select.closest("tr");
+
+    if (!value) return;
+
+    row.classList.remove("strong", "medium", "weak");
+    row.classList.add(getClass(value));
+
+    const recommendationSelect = row.querySelector("td:nth-child(4) select");
+    if (value >= 6) {
+      recommendationSelect.value = "Рекомендую";
+    } else {
+      recommendationSelect.value = "Не рекомендую";
+    }
+  }
+
+  function saveAll() {
+    alert("Данные сохранены");
+  }
+</script>
+
+</body>
+</html>
