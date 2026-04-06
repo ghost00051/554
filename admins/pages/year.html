@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎓</text></svg>">
+    <title>Лицей 554 - Система распределения по профилю</title>
+    <link rel="stylesheet" href="./year.css">
+    <link rel="stylesheet" href="./adaptiv.css">
+</head>
+
+<body>
+    <nav>
+        <div class="logoOfProduct">
+            <img class="logoOfSchool" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23667eea'/%3E%3Ctext x='50' y='72' font-size='60' text-anchor='middle' fill='white'%3E🎓%3C/text%3E%3C/svg%3E"
+                alt="Лого лицея">
+            <div class="discription">
+                <p>Система распределения по профилю</p>
+                <div>
+                    <p>Уровень допуска:</p>
+                    <p id="levelCheck">Загрузка...</p>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <main>
+        <div class="stats-bar">
+            <span>📋 Список студентов</span>
+            <span class="student-count" id="studentCount">0 студентов</span>
+        </div>
+        <div id="renderStudens">
+            <div class="loading-spinner">⏳ Загрузка студентов...</div>
+        </div>
+    </main>
+
+    <script type="module" src="./year.js">
+    </script>
+</body>
+
+</html>

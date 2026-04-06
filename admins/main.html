@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="/public/users/512/favicon.png#joomlaImage://local-public/users/512/favicon.png?width=24&amp;height=24" rel="icon" type="image/vnd.microsoft.icon">
     <title>Лицей 554</title>
     <link rel="stylesheet" href="./main.css">
+    <link rel="stylesheet" href="./adaptiv.css">
 </head>
 
 <body>
@@ -36,39 +37,36 @@
                         <button type="button" id="buttonCloseFormExsel">
                             <img src="../img/Закрыть 1.svg" alt="Закрыть">
                         </button>
-
-                        <!-- <div class="circular-progress-container" id="circularProgressContainer" style="display: none;">
-                            <div class="circular-progress">
-                                <svg class="progress-svg" width="100" height="100" viewBox="0 0 100 100">
-                                    <defs>
-                                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                            <stop offset="0%" stop-color="#667eea" />
-                                            <stop offset="100%" stop-color="#764ba2" />
-                                        </linearGradient>
-                                    </defs>
-                                    <circle class="progress-bg" cx="50" cy="50" r="45" stroke="#e5e7eb" stroke-width="6"
-                                        fill="none" />
-                                    <circle class="progress-circle" cx="50" cy="50" r="45" stroke="url(#gradient)"
-                                        stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="282.74"
-                                        stroke-dashoffset="282.74" />
-                                </svg>
-                                <div class="progress-percent-circle">
-                                    <span class="percent-value">0%</span>
+                        <div class="file-input-group">
+                            <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" />
+                            <div class="help-icon-wrapper">
+                                <img src="../img/goodDown.svg" alt="Подсказка" class="help-icon">
+                                <div class="tooltip-box">
+                                    <div class="tooltip-title">📄 Как должен выглядеть файл?</div>
+                                    <img src="../img/image.png" alt="Пример правильного файла" class="tooltip-image">
+                                    <p class="tooltip-text-content">
+                                        Для того чтобы файл корректно отработал, нужно соблюдать формат заполнения таблицы:
+                                    </p>
+                                    <ul class="tooltip-list">
+                                        <li><strong>Год обучения</strong> — находится в ячейке <code>A1</code></li>
+                                        <li><strong>Наименование класса</strong> — в ячейке <code>A2</code> (например, "7 а класс")</li>
+                                        <li><strong>Данные учеников</strong> — ФИО, предметы и оценки</li>
+                                        <li><strong>Оценки</strong> — можно писать через пробел (<code>4 5</code>) или с точкой (<code>4.50</code>)</li>
+                                    </ul>
+                                    <div class="tooltip-footer">
+                                        💡 <strong>Совет:</strong> скачайте и посмотрите на примере выше
+                                    </div>
                                 </div>
                             </div>
-                            <div class="progress-status-text">Ожидание</div>
-                        </div> -->
-                        <input type="file" id="excelFile" accept=".xlsx,.xls,.csv" />
+                        </div>
                         <button type="submit" id="buttonOfExselFile">📤 Загрузить файл</button>
                     </form>
                 </div>
-
             </div>
             <div>
                 <div>
                     <p>Доступные года:</p>
                     <div id="yearRender"></div>
-                    <!-- Модальное окно подтверждения удаления -->
                     <div class="godOfDeletes" id="deleteModal">
                         <div class="checkDelete">
                             <p>⚠️ Вы точно хотите удалить этот учебный год?</p>
@@ -83,7 +81,7 @@
             </div>
         </main>
         <footer></footer>
-        <script src="./main.js">
+        <script type="module" src="./main.js">
         </script>
     </div>
 </body>

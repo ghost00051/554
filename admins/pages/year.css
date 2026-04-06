@@ -1,0 +1,364 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #667eea;
+}
+
+nav,
+main,
+footer {
+  margin: 0 2% 0 2%;
+}
+
+.logoOfProduct {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 25px;
+  border-radius: 20px;
+  margin-top: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.logoOfProduct:hover {
+  transform: translateY(-2px);
+}
+
+.logoOfSchool {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.discription p {
+  font-weight: 500;
+  font-size: 14px;
+  margin: 0;
+}
+
+.discription p:first-child {
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.discription div {
+  display: flex;
+  gap: 15px;
+  margin-top: 8px;
+  align-items: center;
+}
+
+.discription div p:first-child {
+  color: #666;
+  font-weight: 400;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  color: #666;
+}
+
+#levelCheck {
+  color: #667eea;
+  font-weight: 700;
+  background: #f0f0ff;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+#renderStudens {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 35px;
+}
+
+.people-item {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+.people-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.student-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: white;
+  border-bottom: 1px solid #eef2ff;
+  cursor: pointer;
+}
+
+.student-header:hover {
+  background: #fafbff;
+}
+
+.student-name {
+  font-size: 16px;
+  font-weight: 500;
+  color: #1a1a2e;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.student-name::before {
+  content: "👨‍🎓";
+  font-size: 20px;
+}
+
+.toggle-btn {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  padding: 6px 18px;
+  border-radius: 30px;
+  color: white;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.grades-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background: #f8f9ff;
+}
+
+.grades-content.show {
+  max-height: 1015px;
+  transition: max-height 0.4s ease-in;
+}
+
+.grades-table {
+  padding: 16px 20px;
+  border-top: 1px solid #eef2ff;
+}
+
+@media (max-width: 768px) {
+  .student-header {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+.subject-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #eef2ff;
+}
+
+.subject-row:last-child {
+  border-bottom: none;
+}
+
+.subject-name {
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.subject-name::before {
+  content: "📚";
+  font-size: 16px;
+}
+
+.grades-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.grade-badge {
+  display: inline-block;
+  min-width: 36px;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 13px;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.grade-excellent {
+  background: linear-gradient(135deg, #4caf50, #45a049);
+  color: white;
+}
+
+.grade-good {
+  background: linear-gradient(135deg, #2196f3, #1e88e5);
+  color: white;
+}
+
+.grade-satisfactory {
+  background: linear-gradient(135deg, #ff9800, #fb8c00);
+  color: white;
+}
+
+.grade-poor {
+  background: linear-gradient(135deg, #f44336, #e53935);
+  color: white;
+}
+
+.no-grades {
+  text-align: center;
+  padding: 30px;
+  color: #999;
+  font-style: italic;
+}
+
+.stats-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 40px;
+  padding: 12px 24px;
+  color: white;
+}
+
+.student-count {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.25);
+  padding: 5px 15px;
+  border-radius: 30px;
+  font-size: 14px;
+}
+
+.loading-spinner {
+  text-align: center;
+  padding: 50px;
+  color: white;
+  font-size: 18px;
+}
+
+@media (max-width: 768px) {
+  #renderStudens {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .student-header {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  .logoOfProduct {
+    flex-direction: column;
+    text-align: center;
+  }
+  .logoOfSchool {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+.class-block {
+  margin-bottom: 30px;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.class-header {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 15px 20px;
+  border-radius: 15px 15px 0 0;
+  margin-bottom: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.class-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.class-icon {
+  font-size: 28px;
+}
+
+.class-title h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.class-count {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  margin-left: auto;
+}
+
+.students-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.people-item {
+  transition:
+    box-shadow 0.3s ease,
+    transform 0.2s ease;
+}
+
+.people-item.highlight {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+  transform: scale(1.01);
+}

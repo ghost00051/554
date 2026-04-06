@@ -1,0 +1,328 @@
+@media (max-width: 1024px) {
+    nav, main, footer {
+        margin: 0 3%;
+    }
+    
+    .logoOfSchool {
+        width: 6%;
+    }
+}
+
+@media (max-width: 768px) {
+    nav, main, footer {
+        margin: 0 15px;
+    }
+    
+    .logoOfProduct {
+        padding: 12px 18px;
+        margin-top: 15px;
+        border-radius: 20px;
+    }
+    
+    .logoOfSchool {
+        width: 50px;
+        margin-right: 12px;
+    }
+    
+    .discription p:first-child {
+        font-size: 15px;
+    }
+    
+    .discription p {
+        font-size: 12px;
+    }
+    
+    .discription div {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+    
+    .buttonOfAddYear {
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .addForYear {
+        padding: 10px 20px;
+        font-size: 13px;
+    }
+    
+    .year-item {
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border-radius: 16px;
+    }
+    
+    .year-item p {
+        font-size: 15px;
+    }
+    
+    .year-item button {
+        padding: 6px;
+    }
+    
+    .year-item button img {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .uploadForm {
+        padding: 25px 20px 30px;
+        margin: 0 15px;
+        border-radius: 28px;
+    }
+    
+    .uploadForm::before {
+        font-size: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .uploadForm input[type='file'] {
+        padding: 12px;
+        font-size: 13px;
+        margin: 15px 0;
+    }
+    
+    #buttonOfExselFile {
+        padding: 12px 20px;
+        font-size: 15px;
+    }
+    
+    .progress-bar-container {
+        height: 28px;
+    }
+    
+    .progress-bar {
+        font-size: 11px;
+    }
+    
+    .result-card {
+        padding: 16px;
+        border-radius: 20px;
+    }
+    
+    .result-stats {
+        gap: 10px;
+    }
+    
+    .stat-item {
+        padding: 10px;
+    }
+    
+    .stat-value {
+        font-size: 22px;
+    }
+    
+    .stat-label {
+        font-size: 10px;
+    }
+    
+    .result-title {
+        font-size: 14px;
+    }
+    
+    .checkDelete {
+        padding: 25px 20px;
+        margin: 0 20px;
+        border-radius: 28px;
+    }
+    
+    .checkDelete p:first-child {
+        font-size: 18px;
+    }
+    
+    .classDeleteButton button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .notification {
+        bottom: 15px;
+        right: 15px;
+        left: 15px;
+        padding: 12px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav, main, footer {
+        margin: 0 12px;
+    }
+    
+    .logoOfProduct {
+        padding: 10px 14px;
+    }
+    
+    .logoOfSchool {
+        width: 42px;
+        margin-right: 10px;
+    }
+    
+    .discription p:first-child {
+        font-size: 13px;
+    }
+    
+    .discription p {
+        font-size: 11px;
+    }
+    
+    .addForYear {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    
+    .year-item {
+        padding: 10px 14px;
+    }
+    
+    .year-item p {
+        font-size: 14px;
+    }
+    
+    .uploadForm {
+        padding: 20px 16px 25px;
+    }
+    
+    .uploadForm::before {
+        font-size: 18px;
+    }
+    
+    .uploadForm input[type='file'] {
+        padding: 10px;
+        font-size: 12px;
+    }
+    
+    #buttonOfExselFile {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .result-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+    }
+    
+    .stat-value {
+        font-size: 20px;
+    }
+    
+    .checkDelete {
+        padding: 20px 16px;
+    }
+    
+    .checkDelete p:first-child {
+        font-size: 16px;
+    }
+    
+    .classDeleteButton {
+        gap: 12px;
+    }
+    
+    .classDeleteButton button {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+    .logoOfProduct {
+        margin-top: 10px;
+        padding: 8px 15px;
+    }
+    
+    .logoOfSchool {
+        width: 40px;
+    }
+    
+    .year-item {
+        padding: 8px 14px;
+    }
+    
+    .buttonOfAddYear {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+/* Планшеты в портретной ориентации */
+@media (min-width: 769px) and (max-width: 1024px) {
+    nav, main, footer {
+        margin: 0 4%;
+    }
+    
+    .logoOfSchool {
+        width: 5%;
+    }
+    
+    .year-item {
+        padding: 14px 20px;
+    }
+}
+
+/* Большие экраны (десктопы) */
+@media (min-width: 1400px) {
+    nav, main, footer {
+        margin: 0 auto;
+        max-width: 1300px;
+    }
+    
+    .logoOfSchool {
+        width: 3.5%;
+    }
+}
+
+/* Исправление для touch-устройств */
+@media (hover: none) and (pointer: coarse) {
+    .addForYear:hover,
+    .year-item button:hover,
+    #buttonOfExselFile:hover {
+        transform: none;
+    }
+    
+    .addForYear:active {
+        transform: scale(0.97);
+    }
+    
+    .year-item:active {
+        background: #f5f3ff;
+    }
+}
+
+/* Улучшенная читаемость на маленьких экранах */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .progress-status-text {
+        font-size: 12px;
+    }
+    
+    .error-item {
+        font-size: 10px;
+    }
+    
+    .circular-progress-container {
+        padding: 15px;
+    }
+    
+    .percent-value {
+        font-size: 16px;
+    }
+}
+
+/* Фикс для модалок на мобильных */
+@media (max-width: 768px) {
+    .formOfExsel,
+    .godOfDeletes {
+        padding: 10px;
+        align-items: center;
+    }
+    
+    .formOfExsel.active .uploadForm,
+    .godOfDeletes.active .checkDelete {
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+}

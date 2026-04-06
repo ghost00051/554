@@ -1,3 +1,4 @@
+import { url } from './base.js'
 const currentUrl = window.location.href
 const element = document.getElementById('levelCheck')
 const data = currentUrl.split('/')
@@ -8,6 +9,50 @@ if (data[3] == 'admins') {
 } else {
     element.textContent = 'Ошибка'
 }
+
+if ('ontouchstart' in window) {
+    document.body.style.touchAction = 'manipulation'
+
+    const buttons = document.querySelectorAll(
+        'button, .student-header, .toggle-btn'
+    )
+    buttons.forEach(btn => {
+        btn.addEventListener(
+            'touchstart',
+            function() {
+                this.style.opacity = '0.7'
+            }, { passive: true }
+        )
+        btn.addEventListener('touchend', function() {
+            this.style.opacity = '1'
+        })
+        btn.addEventListener('touchcancel', function() {
+            this.style.opacity = '1'
+        })
+    })
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if ('ontouchstart' in window) {
+        document.body.style.touchAction = 'manipulation'
+    }
+
+    const buttons = document.querySelectorAll('button, .year-item')
+    buttons.forEach(btn => {
+        btn.addEventListener(
+            'touchstart',
+            function() {
+                this.style.opacity = '0.7'
+            }, { passive: true }
+        )
+        btn.addEventListener('touchend', function() {
+            this.style.opacity = '1'
+        })
+        btn.addEventListener('touchcancel', function() {
+            this.style.opacity = '1'
+        })
+    })
+})
 
 const buttonExsel = document.getElementById('buttonOfExselFile')
 const uploadForm = document.getElementById('uploadForm')
@@ -244,13 +289,10 @@ uploadForm.addEventListener('submit', async e => {
   submitButton.textContent = 'Импорт...'
 
   try {
-    const response = await fetch(
-      'http://localhost:3000/api/import/students/progress',
-      {
-        method: 'POST',
-        body: formData
-      }
-    )
+    const response = await fetch(`${url}import/students/progress`, {
+      method: 'POST',
+      body: formData
+    })
 
     const reader = response.body.getReader()
     const decoder = new TextDecoder()
@@ -344,8 +386,6 @@ formOfExsel.addEventListener('click', e => {
   }
 })
 
-
-
 let currentYearId = null
 const deleteModal = document.getElementById('deleteModal')
 const confirmDeleteBtn = document.getElementById('confirmDelete')
@@ -363,7 +403,7 @@ function openDeleteModal (yearId) {
 
 async function deleteYear (yearId) {
   try {
-    const response = await fetch(`http://localhost:3000/api/years/${yearId}`, {
+    const response = await fetch(`${url}years/${yearId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -373,9 +413,7 @@ async function deleteYear (yearId) {
     const result = await response.json()
 
     if (response.ok) {
-      // Показываем уведомление об успехе
       showNotification('✅ Учебный год успешно удален', 'success')
-      // Обновляем список годов
       await loadYears()
     } else {
       showNotification(
@@ -391,9 +429,7 @@ async function deleteYear (yearId) {
   }
 }
 
-// Функция показа уведомлений
 function showNotification (message, type = 'info') {
-  // Создаем уведомление
   const notification = document.createElement('div')
   notification.className = `notification notification-${type}`
   notification.innerHTML = `
@@ -444,7 +480,7 @@ function showNotification (message, type = 'info') {
 async function loadYears () {
   const renderYear = document.getElementById('yearRender')
   try {
-    const response = await fetch('http://localhost:3000/api/years/', {
+    const response = await fetch(`${url}years/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -464,6 +500,19 @@ async function loadYears () {
                         </button>
                     </div>
                 `
+      })
+
+      document.querySelectorAll('.year-item').forEach(item => {
+        item.addEventListener('click', e => {
+          if (e.target.closest('.delete-year-btn')) return
+
+          const yearText = item
+            .querySelector('p')
+            ?.textContent.replace('📅 ', '')
+          window.location.href = `pages/year.html?year=${encodeURIComponent(
+            yearText
+          )}`
+        })
       })
 
       document.querySelectorAll('.delete-year-btn').forEach(btn => {
@@ -532,4 +581,50 @@ document.head.appendChild(style)
 
 document.addEventListener('DOMContentLoaded', async () => {
   await loadYears()
+})
+
+const helpWrapper = document.querySelector('.help-icon-wrapper')
+let mobileTooltipTimeout = null
+
+if (helpWrapper) {
+  helpWrapper.addEventListener('touchstart', (e) => {
+    e.stopPropagation()
+    const tooltip = helpWrapper.querySelector('.tooltip-box')
+    
+    if (tooltip && tooltip.style.visibility === 'visible') {
+      e.preventDefault()
+      tooltip.style.visibility = 'hidden'
+      tooltip.style.opacity = '0'
+      return
+    }
+    
+    if (tooltip) {
+      tooltip.style.visibility = 'visible'
+      tooltip.style.opacity = '1'
+      
+      if (mobileTooltipTimeout) clearTimeout(mobileTooltipTimeout)
+      mobileTooltipTimeout = setTimeout(() => {
+        tooltip.style.visibility = 'hidden'
+        tooltip.style.opacity = '0'
+      }, 5000)
+    }
+  })
+  
+  window.addEventListener('scroll', () => {
+    const tooltip = helpWrapper.querySelector('.tooltip-box')
+    if (tooltip) {
+      tooltip.style.visibility = 'hidden'
+      tooltip.style.opacity = '0'
+    }
+  })
+}
+
+document.addEventListener('touchstart', (e) => {
+  if (!helpWrapper?.contains(e.target)) {
+    const tooltip = helpWrapper?.querySelector('.tooltip-box')
+    if (tooltip) {
+      tooltip.style.visibility = 'hidden'
+      tooltip.style.opacity = '0'
+    }
+  }
 })

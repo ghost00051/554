@@ -1,0 +1,31 @@
+@media (max-width: 768px) {
+    .student-header {
+        flex-direction: row !important;
+        flex-wrap: wrap;
+    }
+    
+    .toggle-btn {
+        white-space: nowrap;
+    }
+    
+    .grades-content.show {
+        max-height: 1200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .student-header {
+        flex-direction: column !important;
+        text-align: center;
+    }
+    
+    .toggle-btn {
+        white-space: normal;
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .student-name {
+        justify-content: center;
+    }
+}
