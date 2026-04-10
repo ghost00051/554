@@ -10,17 +10,15 @@ dotenv.config();
 const routes = require('./routes');
 const errorHandler = require('./middleware/errorHandler');
 const logger = require('./config/logger');
+const Admin = require('./models/Admin');
 
 const app = express();
 
 const corsOptions = {
     origin: '*',
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
-    exposedHeaders: ['Content-Length', 'X-Requested-With'],
-    credentials: true,
-    preflightContinue: false,
-    optionsSuccessStatus: 204
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
 };
 
 app.use(cors(corsOptions));
@@ -34,8 +32,7 @@ const limiter = rateLimit({
 });
 
 app.use(helmet({
-    crossOriginResourcePolicy: { policy: "cross-origin" },
-    crossOriginOpenerPolicy: { policy: "unsafe-none" }
+    crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -45,5 +42,16 @@ app.use(limiter);
 app.use('/api', routes);
 
 app.use(errorHandler);
+
+async function initAdmin() {
+    try {
+        await Admin.createTable();
+        logger.info('✅ Admin settings initialized');
+    } catch (error) {
+        logger.error('❌ Error initializing admin:', error);
+    }
+}
+
+initAdmin();
 
 module.exports = app;
