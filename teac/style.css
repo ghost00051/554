@@ -1,0 +1,284 @@
+﻿
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+
+.container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+h1 {
+  color: white;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+
+.filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filters select {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+}
+
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th {
+  background: linear-gradient(135deg, #ffc107, #fd7e14);
+  color: white;
+  padding: 12px;
+  font-weight: 600;
+}
+
+td {
+  padding: 12px;
+  text-align: center;
+  border-bottom: 1px solid #eee;
+}
+
+
+tr.strong {
+  background: #dcfce7;
+}
+
+tr.medium {
+  background: #fef9c3;
+}
+
+tr.weak {
+  background: #fee2e2;
+}
+
+
+select {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+
+#saveBtn {
+  margin-top: 15px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  padding: 14px 30px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#saveBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+#error {
+  color: red;
+  margin-top: 10px;
+}
+
+
+@media (max-width: 768px) {
+  .filters {
+    flex-direction: column;
+  }
+
+  table {
+    font-size: 12px;
+  }
+}
+.logoOfProduct {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(255, 255, 255);
+    padding: 20px 25px;
+    border-radius: 20px;
+    margin: 20px auto;
+    width: 90%;
+    max-width: 900px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.logoOfSchool {
+    width: 60px;
+    height: auto;
+}
+
+.discription {
+    display: flex;
+    flex-direction: column;
+}
+
+    .discription p {
+        margin: 0;
+    }
+
+        .discription p:first-child {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+    .discription div {
+        display: flex;
+        gap: 10px;
+        margin-top: 5px;
+    }
+
+        .discription div p:first-child {
+            color: #666;
+        }
+
+#levelCheck {
+    color: #667eea;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+
+    body {
+        font-size: 14px;
+    }
+
+    .logoOfProduct {
+        flex-direction: row;
+        align-items: center;
+        padding: 15px;
+        gap: 12px;
+        border-radius: 15px;
+    }
+
+    .logoOfSchool {
+        width: 45px;
+    }
+
+    .discription p:first-child {
+        font-size: 15px;
+    }
+
+    .discription div {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    main {
+        margin: 0 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .filters {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin: 15px 0;
+    }
+
+        .filters select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+    table {
+        display: block;
+        width: 100%;
+    }
+
+    thead {
+        display: none;
+    }
+
+    tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    tr {
+        display: flex;
+        flex-direction: column;
+        background: white;
+        border-radius: 15px;
+        padding: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    td {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        border: none;
+        font-size: 13px;
+    }
+
+        td::before {
+            font-weight: 600;
+            color: #555;
+        }
+
+        td:nth-child(1)::before {
+            content: "Ученик";
+        }
+
+        td:nth-child(2)::before {
+            content: "Средний бал";
+        }
+
+        td:nth-child(3)::before {
+            content: "Способность";
+        }
+
+        td:nth-child(4)::before {
+            content: "Рекомендация";
+        }
+
+    select {
+        font-size: 13px;
+        padding: 5px 8px;
+        border-radius: 8px;
+    }
+
+    #saveBtn {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px;
+        font-size: 14px;
+    }
+}

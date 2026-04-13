@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Рекомендации учителя</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="logoOfProduct">
+        <img src="logo554.jpg" class="logoOfSchool">
+
+        <div class="discription">
+            <p>Система распределения по профилю</p>
+            <div>
+                <p>Уровень доступа:</p>
+                <p id="levelCheck">Учитель</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1> Распределения по профилю</h1>
+        <div class="filters">
+            <select id="group"></select>
+            <select id="subject"></select>
+            <select id="year"></select>
+        </div>
+        <div class="card">
+            <h3>Список учеников</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ученик</th>
+                        <th>Средний бал оценки</th>
+                        <th>Способность</th>
+                        <th>Рекомендация</th>
+                    </tr>
+                </thead>
+                <tbody id="studentsTable">
+                    <tr>
+                        <td colspan="5">Загрузка...</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="saveBtn">💾 Сохранить всё</button>
+        </div>
+        <div id="error"></div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
