@@ -135,6 +135,7 @@ function updateProgress(percent, message, data = null) {
                     </div>
                 `
             }
+            loadYears()
         }, 500)
     } else if (percent > 0 && percent < 100) {
         if (circularProgressContainer) {
@@ -403,10 +404,13 @@ function openDeleteModal (yearId) {
 
 async function deleteYear (yearId) {
   try {
+    const token = localStorage.getItem('adminToken')
+
     const response = await fetch(`${url}years/${yearId}`, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
       }
     })
 
@@ -587,21 +591,21 @@ const helpWrapper = document.querySelector('.help-icon-wrapper')
 let mobileTooltipTimeout = null
 
 if (helpWrapper) {
-  helpWrapper.addEventListener('touchstart', (e) => {
+  helpWrapper.addEventListener('touchstart', e => {
     e.stopPropagation()
     const tooltip = helpWrapper.querySelector('.tooltip-box')
-    
+
     if (tooltip && tooltip.style.visibility === 'visible') {
       e.preventDefault()
       tooltip.style.visibility = 'hidden'
       tooltip.style.opacity = '0'
       return
     }
-    
+
     if (tooltip) {
       tooltip.style.visibility = 'visible'
       tooltip.style.opacity = '1'
-      
+
       if (mobileTooltipTimeout) clearTimeout(mobileTooltipTimeout)
       mobileTooltipTimeout = setTimeout(() => {
         tooltip.style.visibility = 'hidden'
@@ -609,7 +613,7 @@ if (helpWrapper) {
       }, 5000)
     }
   })
-  
+
   window.addEventListener('scroll', () => {
     const tooltip = helpWrapper.querySelector('.tooltip-box')
     if (tooltip) {
@@ -619,7 +623,7 @@ if (helpWrapper) {
   })
 }
 
-document.addEventListener('touchstart', (e) => {
+document.addEventListener('touchstart', e => {
   if (!helpWrapper?.contains(e.target)) {
     const tooltip = helpWrapper?.querySelector('.tooltip-box')
     if (tooltip) {

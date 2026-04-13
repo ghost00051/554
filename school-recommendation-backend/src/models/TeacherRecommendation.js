@@ -57,6 +57,54 @@ class TeacherRecommendation {
             throw error;
         }
     }
+
+    static async findByStudentAndSubject(studentId, subjectId) {
+        const query = `
+        SELECT tr.*, s.name as subject_name, st.full_name as student_name
+        FROM teacher_recommendations tr
+        JOIN subjects s ON tr.subject_id = s.id
+        JOIN students st ON tr.student_id = st.id
+        WHERE tr.student_id = $1 AND tr.subject_id = $2
+        ORDER BY tr.created_at DESC
+    `;
+
+        try {
+            const result = await pool.query(query, [studentId, subjectId]);
+            return result.rows;
+        } catch (error) {
+            logger.error('Error fetching recommendations by student and subject:', error);
+            throw error;
+        }
+    }
+
+    static async update(id, score, comment) {
+        const query = `
+        UPDATE teacher_recommendations 
+        SET score = $1, comment = $2 
+        WHERE id = $3 
+        RETURNING *
+    `;
+
+        try {
+            const result = await pool.query(query, [score, comment, id]);
+            return result.rows[0];
+        } catch (error) {
+            logger.error('Error updating recommendation:', error);
+            throw error;
+        }
+    }
+
+    static async delete(id) {
+        const query = 'DELETE FROM teacher_recommendations WHERE id = $1 RETURNING *';
+
+        try {
+            const result = await pool.query(query, [id]);
+            return result.rows[0];
+        } catch (error) {
+            logger.error('Error deleting recommendation:', error);
+            throw error;
+        }
+    }
 }
 
 module.exports = TeacherRecommendation;

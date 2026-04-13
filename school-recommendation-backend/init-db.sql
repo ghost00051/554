@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS teacher_recommendations (
     id SERIAL PRIMARY KEY,
     student_id INTEGER REFERENCES students(id) ON DELETE CASCADE,
     subject_id INTEGER REFERENCES subjects(id),
-    score INTEGER CHECK (score >= 0 AND score <= 10),
+    score NUMERIC(4,2) CHECK (score >= 0 AND score <= 10),
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

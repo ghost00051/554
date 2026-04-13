@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Авторизация</title>
+    <link rel="stylesheet" href="./authorization.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>🔐 Вход в систему</h2>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="password">Пароль администратора</label>
+                <div class="password-input-wrapper">
+                    <input type="password" id="password" name="password" placeholder="Введите пароль" required autocomplete="current-password">
+                    <button type="button" class="toggle-password" id="togglePassword">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" id="submitBtn">
+                <span class="button-text">Войти</span>
+                <div class="loading-spinner"></div>
+            </button>
+        </form>
+
+        <div id="notification" class="notification"></div>
+    </div>
+    <script type="module" src="./authorization.js"></script>
+</body>
+
+</html>

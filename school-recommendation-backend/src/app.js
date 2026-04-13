@@ -4,6 +4,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 const dotenv = require('dotenv');
+const { Pool } = require('pg');
 
 dotenv.config();
 
@@ -26,7 +27,7 @@ app.options('*', cors(corsOptions));
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 100,
+    max: 100000,
     message: 'Too many requests from this IP',
     skip: (req) => req.method === 'OPTIONS'
 });
@@ -51,6 +52,36 @@ async function initAdmin() {
         logger.error('❌ Error initializing admin:', error);
     }
 }
+
+const pool = new Pool({
+    host: process.env.DB_HOST || 'postgres',
+    port: process.env.DB_PORT || 5432,
+    database: process.env.DB_NAME || 'school_db',
+    user: process.env.DB_USER || 'postgres',
+    password: process.env.DB_PASSWORD || '685974',
+});
+
+async function fixTable() {
+    try {
+        await pool.query(`
+            ALTER TABLE teacher_recommendations 
+            ALTER COLUMN score TYPE NUMERIC(4,2)
+        `);
+        console.log('✅ Таблица teacher_recommendations исправлена');
+    } catch (error) {
+        if (error.message.includes('does not exist')) {
+            console.log('⏳ Таблица teacher_recommendations еще не создана');
+        } else {
+            console.log('ℹ️ Таблица teacher_recommendations уже имеет правильный тип');
+        }
+    } finally {
+        await pool.end();
+    }
+}
+
+setTimeout(() => {
+    fixTable();
+}, 3000);
 
 initAdmin();
 

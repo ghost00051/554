@@ -15,76 +15,59 @@ class RecommendationService {
             }
 
             const grades = student.grades || []
-
             const recommendations = student.recommendations || []
 
-            const keySubjects = ['Математика', 'Русский язык', 'Физика']
-            const subjectGrades = grades.filter(g => keySubjects.includes(g.subject))
+            const physMathSubjects = ['Физика', 'Алгебра', 'Информатика']
+            const physMathResult = this.calculateProfileScore(
+                grades,
+                recommendations,
+                physMathSubjects
+            )
 
-            let averageGrade = 0
-            if (subjectGrades.length > 0) {
-                const sum = subjectGrades.reduce(
-                    (acc, g) => acc + parseFloat(g.grade),
-                    0
-                )
-                averageGrade = sum / subjectGrades.length
-            }
+            const chemBioSubjects = ['Химия', 'Биология']
+            const chemBioResult = this.calculateProfileScore(
+                grades,
+                recommendations,
+                chemBioSubjects
+            )
 
-            const normalizedGrade = (averageGrade / 5) * 10
+            let recommendedClassName = ''
+            let totalScore = 0
+            let details = {}
 
-            let averageRecommendation = 0
-            if (recommendations.length > 0) {
-                const sum = recommendations.reduce((acc, r) => acc + r.score, 0)
-                averageRecommendation = sum / recommendations.length
-            }
-
-            const weights = {
-                academicPerformance: 0.6,
-                teacherRecommendation: 0.4
-            }
-
-            const totalScore =
-                normalizedGrade * weights.academicPerformance +
-                averageRecommendation * weights.teacherRecommendation
-
-            let recommendedClass = null
-            let recommendedClassName = 'Общеобразовательный'
-
-            if (totalScore >= 8.5) {
+            if (physMathResult.totalScore >= chemBioResult.totalScore) {
                 recommendedClassName = 'Физико-математический'
-            } else if (totalScore >= 7) {
-                recommendedClassName = 'Естественно-научный'
-            } else if (totalScore >= 5.5) {
-                recommendedClassName = 'Социально-экономический'
+                totalScore = physMathResult.totalScore
+                details = {
+                    profile: 'physmath',
+                    recommended_class_name: 'Физико-математический',
+                    normalizedGrade: physMathResult.normalizedGrade,
+                    averageRecommendation: physMathResult.averageRecommendation,
+                    weights: physMathResult.weights,
+                    subjectGrades: physMathResult.subjectGrades,
+                    recommendations: physMathResult.recommendations,
+                    algorithm: 'profile_based_v2'
+                }
             } else {
-                recommendedClassName = 'Гуманитарный'
+                recommendedClassName = 'Химико-биологический'
+                totalScore = chemBioResult.totalScore
+                details = {
+                    profile: 'chembio',
+                    recommended_class_name: 'Химико-биологический',
+                    normalizedGrade: chemBioResult.normalizedGrade,
+                    averageRecommendation: chemBioResult.averageRecommendation,
+                    weights: chemBioResult.weights,
+                    subjectGrades: chemBioResult.subjectGrades,
+                    recommendations: chemBioResult.recommendations,
+                    algorithm: 'profile_based_v2'
+                }
             }
 
-            const classes = await Class.findAll(academicYearId)
-            const targetClass = classes.find(c => c.name === recommendedClassName)
-
-            if (targetClass) {
-                recommendedClass = targetClass.id
-            }
-
-            const details = {
-                normalizedGrade,
-                averageRecommendation,
-                weights,
-                subjectGrades: subjectGrades.map(g => ({
-                    subject: g.subject,
-                    grade: g.grade
-                })),
-                recommendations: recommendations.map(r => ({
-                    subject: r.subject,
-                    score: r.score
-                })),
-                algorithm: 'weighted_sum_v1'
-            }
+            await FinalRecommendation.deleteByStudent(studentId)
 
             const finalRecommendation = await FinalRecommendation.create(
                 studentId,
-                recommendedClass,
+                null,
                 totalScore,
                 details
             )
@@ -102,11 +85,55 @@ class RecommendationService {
             return {
                 ...finalRecommendation,
                 recommendedClassName,
-                totalScore
+                totalScore,
+                physMathScore: physMathResult.totalScore,
+                chemBioScore: chemBioResult.totalScore
             }
         } catch (error) {
             logger.error('Error calculating recommendation:', error)
             throw error
+        }
+    }
+
+    static calculateProfileScore(grades, recommendations, profileSubjects) {
+        const subjectGrades = grades.filter(g =>
+            profileSubjects.includes(g.subject)
+        )
+
+        const profileRecommendations = recommendations.filter(r =>
+            profileSubjects.includes(r.subject)
+        )
+
+        let averageGrade = 0
+        if (subjectGrades.length > 0) {
+            const sum = subjectGrades.reduce((acc, g) => acc + parseFloat(g.grade), 0)
+            averageGrade = sum / subjectGrades.length
+        }
+
+        const normalizedGrade = (averageGrade / 5) * 10
+
+        let averageRecommendation = 0
+        if (profileRecommendations.length > 0) {
+            const sum = profileRecommendations.reduce((acc, r) => acc + r.score, 0)
+            averageRecommendation = sum / profileRecommendations.length
+        }
+
+        const weights = {
+            academicPerformance: 0.6,
+            teacherRecommendation: 0.4
+        }
+
+        const totalScore =
+            normalizedGrade * weights.academicPerformance +
+            averageRecommendation * weights.teacherRecommendation
+
+        return {
+            totalScore,
+            normalizedGrade,
+            averageRecommendation,
+            weights,
+            subjectGrades,
+            recommendations: profileRecommendations
         }
     }
 
@@ -150,7 +177,6 @@ class RecommendationService {
         }
     }
 
-    // Получить рекомендацию с кэшем
     static async getRecommendation(studentId) {
         try {
             const cached = await cacheService.get(
@@ -175,11 +201,6 @@ class RecommendationService {
             logger.error('Error getting recommendation:', error)
             throw error
         }
-    }
-    static calculateAverageGrade(grades) {
-        if (!grades || grades.length === 0) return 0
-        const sum = grades.reduce((acc, g) => acc + parseFloat(g.grade), 0)
-        return sum / grades.length
     }
 }
 

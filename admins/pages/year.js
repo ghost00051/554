@@ -113,14 +113,12 @@ async function fetchStudentRecommendations(studentId, studentName) {
     }
 
     try {
-        const response = await fetch(
-            `${url}recommendations/student/${studentId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+        const response = await fetch(`${url}recommendations/student/${studentId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        )
+        })
 
         const result = await response.json()
 
@@ -144,14 +142,12 @@ async function fetchStudentGrades(studentId, studentName) {
     }
 
     try {
-        const response = await fetch(
-            `${url}students/${studentId}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
+        const response = await fetch(`${url}students/${studentId}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
             }
-        )
+        })
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
@@ -274,15 +270,12 @@ async function loadClasses (yearGetId) {
     return
   }
   try {
-    const response = await fetch(
-      `${url}/years/${yearGetId}/classes`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    const response = await fetch(`${url}/years/${yearGetId}/classes`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    )
+    })
     const classData = await response.json()
     console.log('Классы:', classData)
 
@@ -304,15 +297,12 @@ async function loadPeople () {
   const levelCheckSpan = document.getElementById('levelCheck')
 
   try {
-    const subjectsResponse = await fetch(
-      `${url}/subjects`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    const subjectsResponse = await fetch(`${url}/subjects`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    )
+    })
     const subjectsData = await subjectsResponse.json()
     globalSubjectsList = subjectsData.data || []
     console.log(
@@ -320,15 +310,12 @@ async function loadPeople () {
       globalSubjectsList.map(s => s.name)
     )
 
-    const studentResponse = await fetch(
-      `${url}students/?limit=1000`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        }
+    const studentResponse = await fetch(`${url}students/?limit=1000`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
       }
-    )
+    })
 
     if (!studentResponse.ok) {
       throw new Error(`HTTP error! status: ${studentResponse.status}`)

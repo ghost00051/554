@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 const authMiddleware = (req, res, next) => {
-    const token = req.headers['authorization']?.split(' ')[1];
-    
+    const token = req.headers['authorization'] ? .split(' ')[1];
+
     if (!token) {
         if (process.env.NODE_ENV === 'production') {
             return res.status(401).json({
@@ -12,7 +12,7 @@ const authMiddleware = (req, res, next) => {
         }
         return next();
     }
-    
+
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret_key');
         req.user = decoded;
@@ -36,4 +36,6 @@ const adminOnly = (req, res, next) => {
     }
 };
 
-module.exports = { authMiddleware, adminOnly };
+module.exports = authMiddleware;
+module.exports.authMiddleware = authMiddleware;
+module.exports.adminOnly = adminOnly;
